@@ -25,9 +25,16 @@ void get_letter_frequencies(string &content, vector<string> &characters, vector<
         }
         if(!found){
             characters.push_back(s);
-            frequencies.push_back(0);
+            frequencies.push_back(1);
         }
     }
+
+    for (int i = 0; i < characters.size(); ++i) {
+        if(characters[i] == "\n"){
+            characters[i] = "\\n";
+        }
+    }
+
     sort_by_frequency(characters, frequencies);
     sort_by_aplha(characters, frequencies);
 }
