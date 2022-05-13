@@ -3,10 +3,8 @@
 //
 
 #include "Tree.h"
-#include "stdlib.h"
 
-Tree::Tree(const string &label, const int frequency, Tree *leftChild, Tree *rightChild) : label(label), frequency(frequency), left_child(leftChild),
-                                                                     right_child(rightChild) {}
+Tree::Tree(const string &label, const int frequency, Tree *left_child, Tree *right_child) : label(label), frequency(frequency), left_child(left_child), right_child(right_child) {}
 
 ostream &operator<<(ostream &strm, const Tree &t) {
     string left_child_string;
@@ -35,12 +33,12 @@ ostream &operator<<(ostream &strm, const Tree &t) {
                 << string(", \"right_child\":") << right_child_string;
 }
 
-Tree Tree::get_left_child() {
-    return *left_child;
+Tree* Tree::get_left_child() {
+    return left_child;
 }
 
-Tree Tree::get_right_child() {
-    return *right_child;
+Tree* Tree::get_right_child() {
+    return right_child;
 }
 
 string Tree::to_string() {
@@ -50,7 +48,6 @@ string Tree::to_string() {
         left_child_string.assign("null");
     } else {
         left_child_string = left_child->to_string();
-
     }
 
     string right_child_string;
@@ -61,9 +58,24 @@ string Tree::to_string() {
         right_child_string = right_child->to_string();
     }
 
-    return string("{\"label\":'") + label
-           + string("', \"frequency\":") + std::to_string(frequency)
+    return string("{\"label\":\"") + label
+           + string("\", \"frequency\":") + std::to_string(frequency)
            + string(", \"left_child\":") + left_child_string
            + string(", \"right_child\":") + right_child_string
            + string ("}");
+}
+
+int Tree::get_frequency() {
+    return frequency;
+}
+
+string Tree::get_label() {
+    return label;
+}
+
+Tree::Tree(Tree *pTree) {
+    label = pTree->get_label();
+    frequency = pTree->get_frequency();
+    left_child = pTree->get_left_child();
+    right_child = pTree->get_right_child();
 }
